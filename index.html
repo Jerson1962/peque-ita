@@ -1,0 +1,538 @@
+ <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz 9 Meses Mi Pequeña</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #ffebee, #fce4ec, #f8bbd0);
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #d81b60;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .container {
+            text-align: center;
+            z-index: 10;
+            position: relative;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(216, 27, 96, 0.3);
+            max-width: 500px;
+            width: 100%;
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: transform 0.5s;
+        }
+        
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            color: #c2185b;
+            background: linear-gradient(to right, #c2185b, #e91e63);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+        }
+        
+        .message {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            color: #e91e63;
+            font-weight: bold;
+        }
+        
+        .gift-container {
+            margin: 25px 0;
+            position: relative;
+        }
+        
+        .gift-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #e91e63, #c2185b);
+            border-radius: 15px;
+            margin: 0 auto;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 3rem;
+            z-index: 20;
+            animation: pulse 2s infinite;
+        }
+        
+        .gift-icon:hover {
+            transform: scale(1.15) rotate(8deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .gift-icon::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 25px;
+            background: linear-gradient(to right, #f48fb1, #f06292);
+            top: -12px;
+            border-radius: 8px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .bouquet {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5;
+            animation: float 6s ease-in-out infinite;
+            font-size: 5rem;
+            filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.3));
+        }
+        
+        .flower {
+            position: absolute;
+            font-size: 2.5rem;
+            color: #e91e63;
+            animation: floatFlower 8s ease-in-out infinite;
+            z-index: 4;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+            pointer-events: none;
+        }
+        
+        .heart {
+            position: absolute;
+            top: -50px;
+            font-size: 2rem;
+            color: #e91e63;
+            opacity: 0.8;
+            animation: rain 6s linear infinite;
+            z-index: 3;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            pointer-events: none;
+        }
+        
+        .letter {
+            display: none;
+            margin-top: 30px;
+            padding: 30px;
+            background: linear-gradient(to bottom, #fff, #fce4ec);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            border: 2px dashed #f48fb1;
+            position: relative;
+            z-index: 15;
+            text-align: left;
+            max-height: 350px;
+            overflow-y: auto;
+            font-family: 'Playfair Display', serif;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        
+        .letter-content {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #880e4f;
+        }
+        
+        .letter-content p {
+            margin-bottom: 18px;
+            text-align: justify;
+        }
+        
+        .close-letter {
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #c2185b;
+            transition: transform 0.3s;
+        }
+        
+        .close-letter:hover {
+            transform: scale(1.2);
+        }
+        
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 100;
+            animation: sparkle 1s forwards;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0px);
+            }
+            50% {
+                transform: translateX(-50%) translateY(-25px);
+            }
+        }
+        
+        @keyframes floatFlower {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-30px) rotate(5deg);
+            }
+            66% {
+                transform: translateY(-15px) rotate(-5deg);
+            }
+        }
+        
+        @keyframes rain {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes heartExplosion {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(
+                    calc(-50% + var(--tx) * 100px), 
+                    calc(-50% + var(--ty) * 100px)
+                ) scale(10);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        @keyframes sparkle {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1) rotate(180deg);
+                opacity: 0;
+            }
+        }
+        
+        .signature {
+            margin-top: 25px;
+            font-style: italic;
+            text-align: right;
+            font-weight: bold;
+            color: #c2185b;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+        }
+        
+        .music-control {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                max-width: 90%;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .message {
+                font-size: 1.2rem;
+            }
+            
+            .gift-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 2.5rem;
+            }
+            
+            .bouquet {
+                font-size: 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="music-control" onclick="toggleMusic()">🎵</div>
+    
+    <div class="container">
+        <h1>Feliz 9 Meses</h1>
+        <p class="message">Mi pequeña ❤️</p>
+        
+        <div class="gift-container">
+            <div class="gift-icon" onclick="showLetter()">
+                🎁
+            </div>
+        </div>
+        
+        <div class="letter" id="loveLetter">
+            <span class="close-letter" onclick="closeLetter()">×</span>
+            <div class="letter-content">
+                <p>Mi querida PEQUEÑITA,</p>
+                <p>Hoy celebramos 9 meses juntos, y quiero decirte lo bonito que ha sido cada momento a tu lado.</p>
+                <p>En estos nueve meses hemos vivido tantas cosas hermosas... risas, sueños compartidos y ese amor que crece día a día.</p>
+                <p>Hemos tenido altas y bajas como toda pareja, pero lo más importante es que seguimos juntos, superando cada obstáculo y fortaleciendo nuestro amor.</p>
+                <p>Eres la personita más especial en mi vida, mi razón para sonreír cada día y mi motivación para ser mejor.</p>
+                <p>Gracias por estos maravillosos 9 meses. Espero que vengan muchos más meses y años a tu lado.</p>
+                <p class="signature">Con todo mi amor,<br>Tu JOLBI</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bouquet">💐</div>
+    
+    <audio id="backgroundMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+    
+    <script>
+        // Variables globales
+        let musicPlaying = false;
+        const audio = document.getElementById('backgroundMusic');
+        
+        // Crear flores flotantes
+        function createFloatingFlowers() {
+            const container = document.body;
+            const flowers = ['🌹', '🌹', '🌹', '🌷', '🌸'];
+            const colors = ['#e91e63', '#c2185b', '#ad1457', '#880e4f'];
+            
+            for (let i = 0; i < 20; i++) {
+                const flower = document.createElement('div');
+                flower.className = 'flower';
+                flower.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
+                flower.style.left = Math.random() * 100 + 'vw';
+                flower.style.animationDelay = Math.random() * 6 + 's';
+                flower.style.color = colors[Math.floor(Math.random() * colors.length)];
+                flower.style.fontSize = (Math.random() * 25 + 30) + 'px';
+                
+                container.appendChild(flower);
+            }
+        }
+        
+        // Crear lluvia de corazones
+        function createHeartRain() {
+            const container = document.body;
+            
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                heart.style.fontSize = (Math.random() * 20 + 25) + 'px';
+                heart.style.opacity = Math.random() * 0.5 + 0.3;
+                
+                container.appendChild(heart);
+                
+                // Eliminar el corazón después de que termine la animación
+                setTimeout(() => {
+                    heart.remove();
+                }, 6000);
+            }, 150);
+        }
+        
+        // Mostrar carta de amor
+        function showLetter() {
+            const letter = document.getElementById('loveLetter');
+            letter.style.display = 'block';
+            
+            // Pequeño retraso para la animación de aparición
+            setTimeout(() => {
+                letter.style.opacity = 1;
+                letter.style.transform = 'translateY(0)';
+            }, 10);
+            
+            // Crear explosión de corazones al hacer clic
+            for (let i = 0; i < 30; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤️';
+                heart.style.left = '50%';
+                heart.style.top = '50%';
+                heart.style.position = 'fixed';
+                
+                // Valores aleatorios para la explosión
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 100 + 50;
+                const tx = Math.cos(angle);
+                const ty = Math.sin(angle);
+                
+                heart.style.setProperty('--tx', tx);
+                heart.style.setProperty('--ty', ty);
+                heart.style.animation = `heartExplosion 1.5s ease-out forwards`;
+                heart.style.fontSize = (Math.random() * 20 + 25) + 'px';
+                
+                document.body.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 1500);
+            }
+            
+            // Crear efecto de chispas alrededor del regalo
+            createSparkles();
+        }
+        
+        // Crear efecto de chispas
+        function createSparkles() {
+            for (let i = 0; i < 30; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                
+                // Posición aleatoria alrededor del regalo
+                const gift = document.querySelector('.gift-icon');
+                const giftRect = gift.getBoundingClientRect();
+                const giftX = giftRect.left + giftRect.width / 2;
+                const giftY = giftRect.top + giftRect.height / 2;
+                
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 100 + 50;
+                const x = giftX + Math.cos(angle) * distance;
+                const y = giftY + Math.sin(angle) * distance;
+                
+                sparkle.style.left = `${x}px`;
+                sparkle.style.top = `${y}px`;
+                sparkle.style.animationDelay = Math.random() * 0.5 + 's';
+                
+                document.body.appendChild(sparkle);
+                
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 1000);
+            }
+        }
+        
+        // Cerrar carta
+        function closeLetter() {
+            const letter = document.getElementById('loveLetter');
+            letter.style.opacity = 0;
+            letter.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                letter.style.display = 'none';
+            }, 500);
+        }
+        
+        // Controlar música de fondo
+        function toggleMusic() {
+            const musicControl = document.querySelector('.music-control');
+            
+            if (musicPlaying) {
+                audio.pause();
+                musicControl.innerHTML = '🎵';
+                musicControl.style.opacity = '0.7';
+            } else {
+                audio.play().catch(e => {
+                    console.log("La reproducción automática fue prevenida: ", e);
+                });
+                musicControl.innerHTML = '🔊';
+                musicControl.style.opacity = '1';
+            }
+            
+            musicPlaying = !musicPlaying;
+        }
+        
+        // Inicializar animaciones
+        window.onload = function() {
+            createFloatingFlowers();
+            createHeartRain();
+            
+            // Añadir efecto de escritura en el título
+            const title = document.querySelector('h1');
+            const originalHTML = title.innerHTML;
+            title.innerHTML = '';
+            title.style.opacity = 1;
+            
+            let i = 0;
+            const typeWriter = setInterval(() => {
+                if (i < originalHTML.length) {
+                    title.innerHTML += originalHTML.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(typeWriter);
+                }
+            }, 100);
+            
+            // Intentar reproducir música automáticamente
+            setTimeout(() => {
+                audio.play().then(() => {
+                    musicPlaying = true;
+                    document.querySelector('.music-control').innerHTML = '🔊';
+                }).catch(e => {
+                    console.log("La reproducción automática fue prevenida: ", e);
+                });
+            }, 1000);
+        };
+        
+        // Añadir efecto de movimiento al contenedor con el movimiento del mouse
+        document.addEventListener('mousemove', (e) => {
+            const container = document.querySelector('.container');
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            container.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+    </script>
+</body>
+</html>
